@@ -3,18 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "source": "src/index.tsx",
-  "main": "dist/tedy.js",
+  "main": "dist/index.js",
+  "bin": "index.mjs",
   "type": "module",
-  "bin": "index.js",
   "engines": {
     "node": ">=18"
   },
   "scripts": {
     "start": "tsx src/index.tsx",
-    "build": "parcel build",
+    "build": "tsup src/index.tsx --format esm --minify --clean",
     "watch": "parcel watch",
     "format": "deno fmt --ignore=dist && deno lint --ignore=dist",
-    "postinstall": "patch-package && tsx patch/ink.ts && yarn build"
+    "postinstall": "patch-package && tsx patch/ink.ts"
   },
   "author": {
     "name": "Jeroen Peeters",
@@ -38,8 +38,9 @@
     "@types/react": "^18.2.20",
     "parcel": "^2.9.3",
     "patch-package": "^8.0.0",
+    "tsup": "^7.2.0",
     "tsx": "^3.12.7",
     "type-fest": "^4.2.0",
-    "typescript": ">=3.0.0"
+    "typescript": "^5.1.6"
   }
 }
