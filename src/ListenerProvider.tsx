@@ -1,11 +1,15 @@
 import { useInput, useStdin, useStdout } from "ink";
-import { useCallback, useContext, useEffect } from "react";
-
-import type { PropsWithChildren } from "react";
+import {
+  type PropsWithChildren,
+  useCallback,
+  useContext,
+  useEffect,
+} from "react";
 
 import { clear } from "./clear";
-import { dataAction, resizeAction, WindowContext } from "./WindowHandler";
-import type { UseInputParams } from "./ink.types";
+import { type UseInputParams } from "./ink.types";
+import { WindowContext } from "./WindowHandler";
+import { dataAction, resizeAction } from "./windowActions";
 
 export default function ListenerProvider({ children }: PropsWithChildren) {
   const [, dispatch] = useContext(WindowContext);

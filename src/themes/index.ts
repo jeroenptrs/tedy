@@ -1,6 +1,6 @@
 import { parse } from "node:path";
 
-import type { HighlightOptions } from "cli-highlight";
+import { type HighlightOptions } from "cli-highlight";
 
 import markdown from "./markdown";
 
