@@ -12,7 +12,7 @@
   "scripts": {
     "start": "tsx src/index.tsx",
     "build": "tsup src/index.tsx --format esm --minify --clean",
-    "watch": "parcel watch",
+    "watch": "tsup src/index.tsx --format esm --minify --clean --watch src",
     "format": "deno fmt --ignore=dist && deno lint --ignore=dist",
     "postinstall": "patch-package && tsx patch/ink.ts"
   },

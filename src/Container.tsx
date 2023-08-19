@@ -10,11 +10,12 @@ import CodeView from "./CodeView";
 import cliCursor from "cli-cursor";
 
 export default function Container() {
-  const [{ rows }] = useContext(WindowContext);
+  const [{ rows, virtualCursor }] = useContext(WindowContext);
   const { stdout } = useStdout();
 
   useEffect(() => {
-    readline.cursorTo(stdout, 0, 1);
+    const [row, col] = virtualCursor;
+    readline.cursorTo(stdout, col, row);
     cliCursor.show();
   });
 

@@ -6,15 +6,20 @@ import type { TerminalSize } from "term-size";
 
 import type { UseInputParams } from "./ink.types";
 
+import { cursor } from "./cursor.types";
+
+import type { Cursor } from "./cursor.types";
+
 type WindowState = {
   columns: number;
   rows: number;
   code: string;
   input: string;
   location: string;
+  virtualCursor: Cursor;
   lastInput?: UseInputParams;
 };
-const initialState = { ...terminalSize(), input: "", code: "", location: "" };
+const initialState = { ...terminalSize(), input: "", code: "", location: "", virtualCursor: cursor(1, 0)};
 
 type WindowContext = [WindowState, Dispatch<WindowReducerAction>];
 export const WindowContext = createContext<WindowContext>([
@@ -42,7 +47,17 @@ function windowReducer(
       return { ...state, ...value };
     }
     case "DATA": {
-      return { ...state, lastInput: value };
+      const newState = { ...state, lastInput: value };
+      const [, key] = value;
+      const { rows, columns, virtualCursor } = newState;
+      const [row, col] = virtualCursor;
+      
+      if (key.downArrow) newState.virtualCursor = cursor(row < rows - 2 ? row + 1 : row, col);
+      if (key.upArrow) newState.virtualCursor = cursor(row > 1 ? row - 1 : row, col);
+      if (key.rightArrow) newState.virtualCursor = cursor(row, col < columns - 1 ? col + 1 : col);
+      if (key.leftArrow) newState.virtualCursor = cursor(row, col > 0 ? col - 1 : col);
+      
+      return newState;
     }
     default: {
       return state;
