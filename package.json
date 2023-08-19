@@ -1,0 +1,45 @@
+{
+  "name": "tedy",
+  "version": "1.0.0",
+  "description": "",
+  "source": "src/index.tsx",
+  "main": "dist/tedy.js",
+  "type": "module",
+  "bin": "index.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "tsx src/index.tsx",
+    "build": "parcel build",
+    "watch": "parcel watch",
+    "format": "deno fmt --ignore=dist && deno lint --ignore=dist",
+    "postinstall": "patch-package && tsx patch/ink.ts && yarn build"
+  },
+  "author": {
+    "name": "Jeroen Peeters",
+    "email": "contact@jeroenpeeters.be"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "cli-cursor": "^4.0.0",
+    "cli-highlight": "^2.1.11",
+    "ink": "^4.3.1",
+    "ink-text-input": "^5.0.1",
+    "react": "^18.2.0",
+    "term-size": "^3.0.2",
+    "tslib": "^2.6.1"
+  },
+  "devDependencies": {
+    "@jeroenpeeters/tsconfig": "^1.1.0",
+    "@parcel/packager-ts": "2.9.3",
+    "@parcel/transformer-typescript-types": "2.9.3",
+    "@types/node": "^20.5.0",
+    "@types/react": "^18.2.20",
+    "parcel": "^2.9.3",
+    "patch-package": "^8.0.0",
+    "tsx": "^3.12.7",
+    "type-fest": "^4.2.0",
+    "typescript": ">=3.0.0"
+  }
+}

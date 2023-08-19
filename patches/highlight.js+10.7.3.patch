@@ -1,0 +1,32 @@
+diff --git a/node_modules/highlight.js/lib/languages/markdown.js b/node_modules/highlight.js/lib/languages/markdown.js
+index a4a7448..74237fb 100644
+--- a/node_modules/highlight.js/lib/languages/markdown.js
++++ b/node_modules/highlight.js/lib/languages/markdown.js
+@@ -38,6 +38,12 @@ function markdown(hljs) {
+     subLanguage: 'xml',
+     relevance: 0
+   };
++  const JS = {
++    begin: /export const/,
++    end: ';\n',
++    subLanguage: 'typescript',
++    relevance: 0
++  };
+   const HORIZONTAL_RULE = {
+     begin: '^[-\\*]{3,}',
+     end: '$'
+@@ -237,12 +243,14 @@ function markdown(hljs) {
+     name: 'Markdown',
+     aliases: [
+       'md',
++      'mdx',
+       'mkdown',
+       'mkd'
+     ],
+     contains: [
+       HEADER,
+       INLINE_HTML,
++      JS,
+       LIST,
+       BOLD,
+       ITALIC,

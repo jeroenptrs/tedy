@@ -1,0 +1,6 @@
+{
+  "extends": "./node_modules/@jeroenpeeters/tsconfig/tsconfig.json",
+  "compilerOptions": {
+    "downlevelIteration": true
+  }
+}
