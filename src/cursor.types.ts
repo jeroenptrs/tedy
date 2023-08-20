@@ -1,8 +1,10 @@
 type Row = number & { readonly tag: unique symbol };
-export const Row = (row: number): Row => row as Row;
+const Row = (row: number): Row => row as Row;
+export const row = (c: Cursor): Row => c[0];
 
 type Col = number & { readonly tag: unique symbol };
-export const Col = (col: number): Col => col as Col;
+const Col = (col: number): Col => col as Col;
+export const col = (c: Cursor): Col => c[1];
 
 export type Cursor = [Row, Col];
 export const cursor = (

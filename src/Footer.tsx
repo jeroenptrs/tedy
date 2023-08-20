@@ -4,9 +4,9 @@ import { useContext } from "react";
 import { WindowContext } from "./WindowHandler";
 
 export default function Footer() {
-  const [{ columns, virtualCursor }] = useContext(WindowContext);
-  const [row, col] = virtualCursor;
-  const footerText = `Ln ${row - 1}, Col ${col}`;
+  const [{ columns, codePosition }] = useContext(WindowContext);
+  const [row, col] = codePosition;
+  const footerText = `Ln ${row}, Col ${col}`;
 
   return (
     <Box width={columns} height={1} display="flex" overflow="hidden">

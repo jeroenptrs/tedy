@@ -10,13 +10,17 @@ export type WindowState = {
   input: string;
   location: string;
   virtualCursor: Cursor;
+  viewPort: Cursor;
+  codePosition: Cursor;
   lastInput?: UseInputParams;
 };
 
-export const initialState = {
+export const initialState: WindowState = {
   ...terminalSize(),
   input: "",
   code: "",
   location: "",
   virtualCursor: cursor(1, 0),
+  viewPort: cursor(0, 0),
+  codePosition: cursor(0, 0),
 };
