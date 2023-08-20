@@ -1,6 +1,6 @@
 {
   "name": "tedy",
-  "version": "1.0.0",
+  "version": "0.0.1-beta",
   "description": "",
   "source": "src/index.tsx",
   "main": "dist/index.js",
