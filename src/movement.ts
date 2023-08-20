@@ -1,7 +1,7 @@
 import { col, type Cursor, cursor, row } from "./cursor.types";
 import { lineLength, lines } from "./movement.utils";
 
-type MovementKey = "up" | "down" | "left" | "right";
+export type MovementKey = "up" | "down" | "left" | "right";
 type MovementResult = [Cursor, Cursor, Cursor];
 type MovementProps = {
   virtualCursor: Cursor;
@@ -10,6 +10,7 @@ type MovementProps = {
   code: string;
   rows: number;
   columns: number;
+  withMeta?: boolean;
 };
 
 export default function movement(
@@ -90,20 +91,35 @@ function left(
 
   if (col(virtualCursor) > 0) {
     // There's space to move within the viewport.
-    return [cursor(row(virtualCursor), col(virtualCursor) - 1), viewPort, newCodePosition];
-  } else if (col(virtualCursor) === 0 && col(viewPort) > 0 && col(codePosition) > 0) {
+    return [
+      cursor(row(virtualCursor), col(virtualCursor) - 1),
+      viewPort,
+      newCodePosition,
+    ];
+  } else if (
+    col(virtualCursor) === 0 && col(viewPort) > 0 && col(codePosition) > 0
+  ) {
     // We're at the beginning of the viewport but not of the codeLine.
     return [
       virtualCursor,
       cursor(row(viewPort), col(viewPort) - 1),
       newCodePosition,
     ];
-  } else if (col(virtualCursor) === 0 && col(viewPort) === 0 && col(codePosition) === 0 && row(codePosition) > 0) {
+  } else if (
+    col(virtualCursor) === 0 && col(viewPort) === 0 &&
+    col(codePosition) === 0 && row(codePosition) > 0
+  ) {
     // We're at the beginning of the codeLine, so we try to go up.
     const codeLineLength = lineLength(code, row(codePosition) - 1);
     const fitsInViewPort = codeLineLength < columns;
-    props.virtualCursor = cursor(row(virtualCursor), fitsInViewPort ? codeLineLength : columns - 1);
-    props.viewPort = cursor(row(viewPort), fitsInViewPort ? codeLineLength : codeLineLength - (columns - 1));
+    props.virtualCursor = cursor(
+      row(virtualCursor),
+      fitsInViewPort ? codeLineLength : columns - 1,
+    );
+    props.viewPort = cursor(
+      row(viewPort),
+      fitsInViewPort ? codeLineLength : codeLineLength - (columns - 1),
+    );
     props.codePosition = cursor(row(codePosition), codeLineLength);
     return up(props);
   }
