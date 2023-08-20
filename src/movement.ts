@@ -118,7 +118,7 @@ function left(
     );
     props.viewPort = cursor(
       row(viewPort),
-      fitsInViewPort ? codeLineLength : codeLineLength - (columns - 1),
+      fitsInViewPort ? col(viewPort) : codeLineLength - (columns - 1),
     );
     props.codePosition = cursor(row(codePosition), codeLineLength);
     return up(props);
