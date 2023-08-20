@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 
 const paths = [
   resolve(process.cwd(), "node_modules/ink/package.json"),
-  resolve(process.cwd(), "node_modules/ink-text-input/package.json"),
+  // resolve(process.cwd(), "node_modules/ink-text-input/package.json"),
 ];
 
 const options = { encoding: "utf-8" as const };

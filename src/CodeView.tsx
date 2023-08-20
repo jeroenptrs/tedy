@@ -20,6 +20,7 @@ export default function CodeView() {
   //   )
   //   : [];
 
+  // TODO: move to mixins
   const theme = getTheme(location);
   const potentiallyHighlightedCode = Object.keys(theme).length > 0
     ? highlight(code, theme)

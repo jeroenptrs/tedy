@@ -1,7 +1,7 @@
 {
   "name": "tedy",
   "version": "0.0.1-beta",
-  "description": "",
+  "description": "Your sweet Terminal Editor pal",
   "source": "src/index.tsx",
   "main": "dist/index.js",
   "bin": "index.mjs",
@@ -14,7 +14,7 @@
     "build": "tsup src/index.tsx --format esm --minify --clean",
     "watch": "tsup src/index.tsx --format esm --minify --clean --watch src",
     "format": "deno fmt --ignore=dist && deno lint --ignore=dist",
-    "postinstall": "patch-package && tsx patch/ink.ts"
+    "postinstall": "patch-package && tsx patch/ink.ts && yarn build"
   },
   "author": {
     "name": "Jeroen Peeters",
@@ -25,7 +25,6 @@
     "cli-cursor": "^4.0.0",
     "cli-highlight": "^2.1.11",
     "ink": "^4.3.1",
-    "ink-text-input": "^5.0.1",
     "react": "^18.2.0",
     "term-size": "^3.0.2",
     "tslib": "^2.6.1"
