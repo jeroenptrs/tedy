@@ -31,11 +31,8 @@
   },
   "devDependencies": {
     "@jeroenpeeters/tsconfig": "^1.1.0",
-    "@parcel/packager-ts": "2.9.3",
-    "@parcel/transformer-typescript-types": "2.9.3",
     "@types/node": "^20.5.0",
     "@types/react": "^18.2.20",
-    "parcel": "^2.9.3",
     "patch-package": "^8.0.0",
     "tsup": "^7.2.0",
     "tsx": "^3.12.7",
