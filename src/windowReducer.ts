@@ -1,4 +1,5 @@
 import { col, row } from "./cursor.types";
+import { saveFile } from "./fsHandler";
 import movement, { type MovementKey } from "./movement";
 import { type WindowReducerAction } from "./windowActions";
 import { type WindowState } from "./windowState";
@@ -16,6 +17,11 @@ export default function windowReducer(
   { type, value }: WindowReducerAction,
 ): WindowState {
   switch (type) {
+    case "SAVE": {
+      const { location, code } = state;
+      saveFile(location, code);
+      return { ...state, input: code, lastInput: undefined };
+    }
     case "RESIZE": {
       return { ...state, ...value };
     }

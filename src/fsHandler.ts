@@ -1,4 +1,4 @@
-import { lstatSync, readFileSync } from "node:fs";
+import { lstatSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import * as process from "node:process";
 
@@ -21,4 +21,8 @@ export default function fsInputHandler(): [string, string] {
   }
 
   return [readFileSync(location, { encoding: "utf-8" }), location];
+}
+
+export function saveFile(location: string, code: string): void {
+  return writeFileSync(location, code, { encoding: "utf-8" });
 }

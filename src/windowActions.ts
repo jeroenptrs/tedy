@@ -5,6 +5,7 @@ import { UseInputParams } from "./ink.types";
 export type WindowReducerActionType = {
   RESIZE: "RESIZE";
   DATA: "DATA";
+  SAVE: "SAVE";
 };
 
 export type WindowReducerAction = {
@@ -13,6 +14,9 @@ export type WindowReducerAction = {
 } | {
   type: WindowReducerActionType["DATA"];
   value: UseInputParams;
+} | {
+  type: WindowReducerActionType["SAVE"];
+  value: string | never;
 };
 
 type ActionTypeCreator<T extends keyof WindowReducerActionType> = Extract<
@@ -31,5 +35,12 @@ export function dataAction(value: UseInputParams): ActionTypeCreator<"DATA"> {
   return {
     type: "DATA",
     value,
+  };
+}
+
+export function saveAction(): ActionTypeCreator<"SAVE"> {
+  return {
+    type: "SAVE",
+    value: ""
   };
 }

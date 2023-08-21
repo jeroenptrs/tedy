@@ -9,7 +9,7 @@ import getTheme from "./themes";
 const bodySize = (rows: number) => rows - 2;
 
 export default function CodeView() {
-  const [{ columns, rows, code, location, viewPort, lastInput }] = useContext(
+  const [{ columns, rows, code, location, viewPort }] = useContext(
     WindowContext,
   );
   const [row, col] = viewPort;
