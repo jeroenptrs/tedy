@@ -2,6 +2,7 @@ import { col, row } from "./cursor.types";
 import { saveFile } from "./fsHandler";
 import movement, { type MovementKey } from "./movement";
 import { type WindowReducerAction } from "./windowActions";
+import { parseInput } from "./windowReducer.utils";
 import { type WindowState } from "./windowState";
 
 function insert(codeLine: string, input: string, col: number): string {
@@ -41,11 +42,11 @@ export default function windowReducer(
         : undefined;
 
       if (input && !key.ctrl) {
-        // TODO: newlines are W E I R D?
+        const parsedInput = parseInput(input);
         const codeArray = code.split("\n");
         const codeLine = codeArray[row(codePosition)] as string;
 
-        codeArray[row(codePosition)] = insert(codeLine, input, col(codePosition));
+        codeArray[row(codePosition)] = insert(codeLine, parsedInput, col(codePosition));
         newState.code = codeArray.join("\n");
         movementKey = "right";
       }
@@ -73,7 +74,7 @@ export default function windowReducer(
             codePosition,
             columns,
             rows,
-            code,
+            code: newState.code,
           },
         );
 
