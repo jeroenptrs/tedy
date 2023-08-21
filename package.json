@@ -14,7 +14,7 @@
     "build": "tsup src/index.tsx --format esm --minify --clean",
     "watch": "tsup src/index.tsx --format esm --minify --clean --watch src",
     "format": "deno fmt --ignore=dist && deno lint --ignore=dist",
-    "postinstall": "patch-package && tsx patch/ink.ts && yarn build"
+    "prebuild": "patch-package && tsx patch/ink.ts"
   },
   "author": {
     "name": "Jeroen Peeters",
