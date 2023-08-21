@@ -44,7 +44,7 @@ export default function windowReducer(
         movementKey = "right";
       }
 
-      if (key.delete) {
+      if (key.backspace) {
         const codeArray = code.split("\n");
         const codeLine = codeArray[row(codePosition)] as string;
         
