@@ -11,7 +11,7 @@ export default function getTheme(location: string): HighlightOptions {
     case "md":
     case "mdx":
       return {
-        language,
+        language: "md",
         theme: markdown,
       };
     case "js":
