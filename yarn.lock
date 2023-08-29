@@ -827,8 +827,9 @@ inherits@2:
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
   integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
 
-ink@./vendor/ink:
+"ink@https://gitpkg.now.sh/jeroenptrs/tedy/vendor/ink?main":
   version "4.3.1"
+  resolved "https://gitpkg.now.sh/jeroenptrs/tedy/vendor/ink?main#959f74ac9e456ab213eb9998b4a64b7429c0acbb"
   dependencies:
     "@alcalzone/ansi-tokenize" "^0.1.2"
     ansi-escapes "^6.0.0"
