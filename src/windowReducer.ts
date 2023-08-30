@@ -1,6 +1,8 @@
+import { assertErrorsOnce } from "@jeroenpeeters/assert-errors";
 import { col, row } from "./cursor.types";
 import { saveFile } from "./fsHandler";
-import movement, { type MovementKey } from "./movement";
+import movement from "./movement";
+import { type MovementKey, parseMovement } from "./movement.utils";
 import { type WindowReducerAction } from "./windowActions";
 import { parseInput } from "./windowReducer.utils";
 import { type WindowState } from "./windowState";
@@ -10,7 +12,9 @@ function insert(codeLine: string, input: string, col: number): string {
 }
 
 function extract(codeLine: string, col: number): string {
-  return col > 0 ? [codeLine.slice(0, col - 1), codeLine.slice(col)].join("") : codeLine;
+  return col > 0
+    ? [codeLine.slice(0, col - 1), codeLine.slice(col)].join("")
+    : codeLine;
 }
 
 export default function windowReducer(
@@ -31,36 +35,42 @@ export default function windowReducer(
       const [input, key] = value;
       const { rows, columns, virtualCursor, viewPort, codePosition, code } =
         newState;
-      let movementKey: MovementKey | undefined = key.downArrow
-        ? "down"
-        : key.upArrow
-        ? "up"
-        : key.leftArrow
-        ? "left"
-        : key.rightArrow
-        ? "right"
-        : undefined;
+      let movementKey: MovementKey | undefined;
+      const [_movementKey, err] = assertErrorsOnce(
+        Error,
+        parseMovement,
+        input,
+        key,
+      );
+
+      if (!err) {
+        movementKey = _movementKey;
+      }
 
       if (input && !key.ctrl) {
         const parsedInput = parseInput(input);
         const codeArray = code.split("\n");
         const codeLine = codeArray[row(codePosition)] as string;
 
-        codeArray[row(codePosition)] = insert(codeLine, parsedInput, col(codePosition));
+        codeArray[row(codePosition)] = insert(
+          codeLine,
+          parsedInput,
+          col(codePosition),
+        );
         newState.code = codeArray.join("\n");
-        movementKey = "right";
+        movementKey = "rightArrow";
       }
 
       if (key.backspace) {
         const codeArray = code.split("\n");
         const codeLine = codeArray[row(codePosition)] as string;
-        
+
         if (col(codePosition) === 0) {
           // TODO: handle backspace to carry text to the previous line
-        } else { 
+        } else {
           codeArray[row(codePosition)] = extract(codeLine, col(codePosition));
           newState.code = codeArray.join("\n");
-          movementKey = "left";
+          movementKey = "leftArrow";
         }
       }
 

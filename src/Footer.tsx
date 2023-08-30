@@ -8,12 +8,19 @@ import { saveAction } from "./windowActions";
 function CodePositionInfo() {
   const [{ codePosition, columns }] = useContext(WindowContext);
   return (
-    <Text backgroundColor="grey">{`Ln ${row(codePosition) + 1}, Col ${col(codePosition) + 1}`.padEnd(columns - 3, " ")}</Text>
-  )
+    <Text backgroundColor="grey">
+      {`Ln ${row(codePosition) + 1}, Col ${col(codePosition) + 1}`.padEnd(
+        columns - 3,
+        " ",
+      )}
+    </Text>
+  );
 }
 
 export default function Footer() {
-  const [{ columns, lastInput, code, input }, dispatch] = useContext(WindowContext);
+  const [{ columns, lastInput, code, input }, dispatch] = useContext(
+    WindowContext,
+  );
   const { exit } = useApp();
 
   const unsavedChanges = code !== input;
@@ -28,7 +35,7 @@ export default function Footer() {
         dispatch(saveAction());
       }
     }
-  }, [char, ctrl, unsavedChanges])
+  }, [char, ctrl, unsavedChanges]);
 
   return (
     <Box width={columns} height={1} display="flex" overflow="hidden">

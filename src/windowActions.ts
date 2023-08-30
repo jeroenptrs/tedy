@@ -41,6 +41,6 @@ export function dataAction(value: UseInputParams): ActionTypeCreator<"DATA"> {
 export function saveAction(): ActionTypeCreator<"SAVE"> {
   return {
     type: "SAVE",
-    value: ""
+    value: "",
   };
 }

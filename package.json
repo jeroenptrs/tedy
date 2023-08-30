@@ -22,6 +22,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@jeroenpeeters/assert-errors": "^1.0.2",
     "cli-cursor": "^4.0.0",
     "cli-highlight": "^2.1.11",
     "ink": "https://gitpkg.now.sh/jeroenptrs/tedy/vendor/ink?main",

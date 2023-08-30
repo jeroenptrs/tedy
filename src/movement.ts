@@ -1,7 +1,6 @@
 import { col, type Cursor, cursor, row } from "./cursor.types";
-import { lineLength, lines } from "./movement.utils";
+import { lineLength, lines, type MovementKey } from "./movement.utils";
 
-export type MovementKey = "up" | "down" | "left" | "right";
 type MovementResult = [Cursor, Cursor, Cursor];
 type MovementProps = {
   virtualCursor: Cursor;
@@ -18,13 +17,13 @@ export default function movement(
   props: MovementProps,
 ): MovementResult {
   switch (key) {
-    case "up":
+    case "upArrow":
       return up(props);
-    case "down":
+    case "downArrow":
       return down(props);
-    case "left":
+    case "leftArrow":
       return left(props);
-    case "right":
+    case "rightArrow":
       return right(props);
     default:
       return [props.virtualCursor, props.viewPort, props.codePosition];

@@ -6,7 +6,9 @@ import { useContext } from "react";
 import { WindowContext } from "./WindowHandler";
 
 export default function Header() {
-  const [{ columns, location: _location, code, input }] = useContext(WindowContext);
+  const [{ columns, location: _location, code, input }] = useContext(
+    WindowContext,
+  );
 
   const { base } = parse(_location);
   const unsavedChanges = code !== input;
