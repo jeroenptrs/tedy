@@ -1,6 +1,11 @@
 {
   "extends": "./node_modules/@jeroenpeeters/tsconfig/tsconfig.json",
   "compilerOptions": {
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "declaration": false,
+    "lib": ["ES2022"],
+    "module": "ESNext",
+    "target": "ES2022",
+    "incremental": false
   }
 }

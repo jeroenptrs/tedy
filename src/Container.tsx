@@ -1,4 +1,4 @@
-import readline from "readline";
+import readline from "node:readline";
 
 import { Box, useStdout } from "ink";
 import { useContext, useEffect } from "react";
