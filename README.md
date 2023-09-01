@@ -23,10 +23,11 @@ If you're experiencing an issue, please please please
 - [ ] Prompt for confirmation upon saving with Ctrl+C
 - [ ] up and down respect text boundaries
 - [ ] Backspace carries over line to previous line
-- [ ] CMD + left/right movement
+- [x] CMD + left/right movement
 - [ ] Investigate CMD + up/down movement
-- [ ] Handle resize
+- [ ] Handle resize handling for cursor/viewport
 - [ ] pluggable mixins for code
+- [ ] alt/option + up/down movement
 - [ ] ...
 
 ## TODO: (post-v1)

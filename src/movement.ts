@@ -1,16 +1,5 @@
-import { col, type Cursor, cursor, row } from "./cursor.types";
-import { lineLength, lines, type MovementKey } from "./movement.utils";
-
-type MovementResult = [Cursor, Cursor, Cursor];
-type MovementProps = {
-  virtualCursor: Cursor;
-  viewPort: Cursor;
-  codePosition: Cursor;
-  code: string;
-  rows: number;
-  columns: number;
-  withMeta?: boolean;
-};
+import { col, cursor, row } from "./cursor.types";
+import { lineLength, lines, type MovementKey, type MovementResult, type MovementProps, moveToLineEnd } from "./movement.utils";
 
 export default function movement(
   key: MovementKey,
@@ -25,6 +14,10 @@ export default function movement(
       return left(props);
     case "rightArrow":
       return right(props);
+    case "ctrl+a":
+      return ctrlA(props);
+    case "ctrl+e":
+      return ctrlE(props);
     default:
       return [props.virtualCursor, props.viewPort, props.codePosition];
   }
@@ -85,7 +78,7 @@ function down(
 function left(
   props: MovementProps,
 ): MovementResult {
-  const { virtualCursor, viewPort, codePosition, code, columns } = props;
+  const { virtualCursor, viewPort, codePosition } = props;
   const newCodePosition = cursor(row(codePosition), col(codePosition) - 1); // TODO refactor
 
   if (col(virtualCursor) > 0) {
@@ -109,21 +102,27 @@ function left(
     col(codePosition) === 0 && row(codePosition) > 0
   ) {
     // We're at the beginning of the codeLine, so we try to go up.
-    const codeLineLength = lineLength(code, row(codePosition) - 1);
-    const fitsInViewPort = codeLineLength < columns;
-    props.virtualCursor = cursor(
-      row(virtualCursor),
-      fitsInViewPort ? codeLineLength : columns - 1,
-    );
-    props.viewPort = cursor(
-      row(viewPort),
-      fitsInViewPort ? col(viewPort) : codeLineLength - (columns - 1),
-    );
-    props.codePosition = cursor(row(codePosition), codeLineLength);
+    const moveToLineEndResult = moveToLineEnd(props, -1);
+    props.virtualCursor = moveToLineEndResult[0];
+    props.viewPort = moveToLineEndResult[1];
+    props.codePosition = moveToLineEndResult[2];
     return up(props);
   }
 
   return [virtualCursor, viewPort, codePosition];
+}
+
+function ctrlA(
+  props: MovementProps
+): MovementResult {
+  const { virtualCursor, viewPort, codePosition } = props;
+  return [cursor(row(virtualCursor), 0), cursor(row(viewPort), 0), cursor(row(codePosition), 0)];
+}
+
+function ctrlE(
+  props: MovementProps
+): MovementResult {
+  return moveToLineEnd(props);
 }
 
 function right(

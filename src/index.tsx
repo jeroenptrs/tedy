@@ -16,4 +16,4 @@ function Main({ input }: { input: string; location: string }) {
 }
 
 const [input, location] = fsInputHandler();
-render(<Main input={input} location={location} />, { exitOnCtrlC: false });
+render(<Main input={input} location={location} />, { exitOnCtrlC: false, /* debug: true */ });
