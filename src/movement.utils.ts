@@ -1,5 +1,5 @@
 import { type Key } from "ink";
-import { Cursor, col, cursor, row } from "./cursor.types";
+import { col, Cursor, cursor, row } from "./cursor.types";
 
 export function lines(code: string): number {
   return code.split("\n").length;
@@ -14,15 +14,23 @@ export function lineLength(code: string, line: number): number {
   return codeLine.length;
 }
 
-export function moveToLineEnd(props: MovementProps, rowModifier: number = 0): MovementResult {
-  const {virtualCursor, viewPort, codePosition, code, columns} = props;
+export function moveToLineEnd(
+  props: MovementProps,
+  rowModifier = 0,
+): MovementResult {
+  const { virtualCursor, viewPort, codePosition, code, columns } = props;
+
   const codeLineLength = lineLength(code, row(codePosition) + rowModifier);
   const fitsInViewPort = codeLineLength < columns;
+
   const virtualCol = fitsInViewPort ? codeLineLength : columns - 1;
-  const viewPortCol = fitsInViewPort ? col(viewPort) : codeLineLength - (columns - 1);
+  const viewPortCol = fitsInViewPort
+    ? col(viewPort)
+    : codeLineLength - (columns - 1);
+
   return [
-    cursor(row(virtualCursor), virtualCol), 
-    cursor(row(viewPort), viewPortCol), 
+    cursor(row(virtualCursor), virtualCol),
+    cursor(row(viewPort), viewPortCol),
     cursor(row(codePosition), codeLineLength),
   ];
 }

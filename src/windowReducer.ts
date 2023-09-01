@@ -4,18 +4,8 @@ import { saveFile } from "./fsHandler";
 import movement from "./movement";
 import { type MovementKey, parseMovement } from "./movement.utils";
 import { type WindowReducerAction } from "./windowActions";
-import { parseInput } from "./windowReducer.utils";
+import { extract, insert, parseInput } from "./windowReducer.utils";
 import { type WindowState } from "./windowState";
-
-function insert(codeLine: string, input: string, col: number): string {
-  return [codeLine.slice(0, col), input, codeLine.slice(col)].join("");
-}
-
-function extract(codeLine: string, col: number): string {
-  return col > 0
-    ? [codeLine.slice(0, col - 1), codeLine.slice(col)].join("")
-    : codeLine;
-}
 
 export default function windowReducer(
   state: WindowState,
@@ -36,18 +26,18 @@ export default function windowReducer(
       const { rows, columns, virtualCursor, viewPort, codePosition, code } =
         newState;
       let movementKey: MovementKey | undefined;
-      const [_movementKey, err] = assertErrorsOnce(
+      const [_movementKey, hasNoMappedMovement] = assertErrorsOnce(
         Error,
         parseMovement,
         input,
         key,
       );
 
-      if (!err) {
+      if (!hasNoMappedMovement) {
         movementKey = _movementKey;
       }
 
-      if (input && !key.ctrl) {
+      if (input && hasNoMappedMovement && !key.ctrl) {
         const parsedInput = parseInput(input);
         const codeArray = code.split("\n");
         const codeLine = codeArray[row(codePosition)] as string;
@@ -65,10 +55,28 @@ export default function windowReducer(
         const codeArray = code.split("\n");
         const codeLine = codeArray[row(codePosition)] as string;
 
-        if (col(codePosition) === 0) {
-          // TODO: handle backspace to carry text to the previous line
-        } else {
+        if (row(codePosition) !== 0 && col(codePosition) === 0) {
+          // set left, it will moveToEndLine and call up
+          const [newVirtualCursor, newViewPort, newCodePosition] = movement(
+            "leftArrow",
+            { virtualCursor, viewPort, codePosition, columns, rows, code },
+          );
+
+          // take current row, concatenate to previous row, remove from code
+          codeArray[row(codePosition) - 1] += codeLine;
+          codeArray.splice(row(codePosition), 1);
+
+          // update newstate with left result and new code
+          newState.virtualCursor = newVirtualCursor;
+          newState.viewPort = newViewPort;
+          newState.codePosition = newCodePosition;
+          newState.code = codeArray.join("\n");
+          return newState;
+        } else if (col(codePosition) !== 0) {
+          // remove from code
           codeArray[row(codePosition)] = extract(codeLine, col(codePosition));
+
+          // rebuild + pass to movement
           newState.code = codeArray.join("\n");
           movementKey = "leftArrow";
         }

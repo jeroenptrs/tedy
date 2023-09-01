@@ -1,5 +1,12 @@
 import { col, cursor, row } from "./cursor.types";
-import { lineLength, lines, type MovementKey, type MovementResult, type MovementProps, moveToLineEnd } from "./movement.utils";
+import {
+  lineLength,
+  lines,
+  type MovementKey,
+  type MovementProps,
+  type MovementResult,
+  moveToLineEnd,
+} from "./movement.utils";
 
 export default function movement(
   key: MovementKey,
@@ -113,14 +120,18 @@ function left(
 }
 
 function ctrlA(
-  props: MovementProps
+  props: MovementProps,
 ): MovementResult {
   const { virtualCursor, viewPort, codePosition } = props;
-  return [cursor(row(virtualCursor), 0), cursor(row(viewPort), 0), cursor(row(codePosition), 0)];
+  return [
+    cursor(row(virtualCursor), 0),
+    cursor(row(viewPort), 0),
+    cursor(row(codePosition), 0),
+  ];
 }
 
 function ctrlE(
-  props: MovementProps
+  props: MovementProps,
 ): MovementResult {
   return moveToLineEnd(props);
 }

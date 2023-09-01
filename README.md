@@ -22,7 +22,7 @@ If you're experiencing an issue, please please please
 - [x] Save file on Ctrl+C
 - [ ] Prompt for confirmation upon saving with Ctrl+C
 - [ ] up and down respect text boundaries
-- [ ] Backspace carries over line to previous line
+- [x] Backspace carries over line to previous line
 - [x] CMD + left/right movement
 - [ ] Investigate CMD + up/down movement
 - [ ] Handle resize handling for cursor/viewport
