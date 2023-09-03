@@ -1,5 +1,5 @@
 import { type Key } from "ink";
-import { col, Cursor, cursor, row } from "./cursor.types";
+import { col, Cursor, cursor, row } from "../cursor.types";
 
 export function lines(code: string): number {
   return code.split("\n").length;
@@ -15,9 +15,9 @@ export function lineLength(code: string, line: number): number {
 }
 
 export function moveToLineEnd(
-  props: MovementProps,
+  props: KeyPressProps,
   rowModifier = 0,
-): MovementResult {
+): KeyPressResult {
   const { virtualCursor, viewPort, codePosition, code, columns } = props;
 
   const codeLineLength = lineLength(code, row(codePosition) + rowModifier);
@@ -32,6 +32,7 @@ export function moveToLineEnd(
     cursor(row(virtualCursor), virtualCol),
     cursor(row(viewPort), viewPortCol),
     cursor(row(codePosition), codeLineLength),
+    code,
   ];
 }
 
@@ -47,9 +48,10 @@ function reduceKey(keys: Key) {
   return pressedKeys;
 }
 
-export type MovementResult = [Cursor, Cursor, Cursor];
+// TODO: expand KeyPressResult to have a 4th return arg - code: string;
+export type KeyPressResult = [Cursor, Cursor, Cursor, string];
 
-export type MovementProps = {
+export type KeyPressProps = {
   virtualCursor: Cursor;
   viewPort: Cursor;
   codePosition: Cursor;
@@ -59,20 +61,24 @@ export type MovementProps = {
   withMeta?: boolean;
 };
 
-export type MovementKey =
+export type KeyPress =
+  | "backspace"
   | "upArrow"
   | "downArrow"
   | "leftArrow"
   | "rightArrow"
   | "ctrl+e" /* cmd+right */
   | "ctrl+a" /* cmd+left */
+  | "meta+upArrow" /* option+right */
+  | "meta+downArrow" /* option+right */
   | "meta+f" /* option+right */
   | "meta+b" /* option+left */;
-export function parseMovement(ch: string, key: Key): MovementKey {
+export function parseKeyPress(ch: string, key: Key): KeyPress {
   const pressedKeys = reduceKey(key);
 
   if (pressedKeys.length === 1) {
     switch (pressedKeys[0]) {
+      case "backspace":
       case "upArrow":
       case "downArrow":
       case "leftArrow":
@@ -88,6 +94,19 @@ export function parseMovement(ch: string, key: Key): MovementKey {
       case "meta": {
         if (ch === "b" || ch === "f") {
           return `${pressedKeys[0]}+${ch}`;
+        }
+
+        break;
+      }
+      default:
+        break;
+    }
+  } else if (pressedKeys.length === 2) {
+    switch (pressedKeys[0]) {
+      case "upArrow":
+      case "downArrow": {
+        if (pressedKeys[1] === "meta") {
+          return `${pressedKeys[1]}+${pressedKeys[0]}`;
         }
 
         break;

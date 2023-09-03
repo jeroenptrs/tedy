@@ -1,3 +1,4 @@
+import { assertErrorsOnce } from "@jeroenpeeters/assert-errors";
 import { lstatSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import * as process from "node:process";
@@ -13,8 +14,13 @@ export default function fsInputHandler(): [string, string] {
   }
 
   const location = resolve(cwd, path);
-  const pathInfo = lstatSync(location);
-  if (pathInfo.isDirectory()) {
+  const [pathInfo, doesNotExist] = assertErrorsOnce(Error, lstatSync, location);
+
+  if (doesNotExist) {
+    return ["\n", location];
+  }
+
+  if (pathInfo?.isDirectory()) {
     // TODO: create multi file view, opening dirs too!
     console.log("Please point to a file, not a directory");
     process.exit(1);

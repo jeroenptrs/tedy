@@ -22,8 +22,11 @@ If you're experiencing an issue, please please please
 - [x] Save file on Ctrl+C
 - [ ] Prompt for confirmation upon saving with Ctrl+C
 - [ ] up and down respect text boundaries
+- [x] target is not a folder should create a file on save if non-existent
+- [ ] target is filled in, ask to create file on saving
 - [x] Backspace carries over line to previous line
 - [x] CMD + left/right movement
+- [ ] CMD+left: 1. move to first non-whitespace character 2. move to 0
 - [ ] Investigate CMD + up/down movement
 - [ ] Handle resize handling for cursor/viewport
 - [ ] pluggable mixins for code
