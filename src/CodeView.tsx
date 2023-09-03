@@ -4,8 +4,7 @@ import { useContext } from "react";
 import CodeLine from "./CodeLine";
 import { WindowContext } from "./WindowHandler";
 import handleMixins from "./codeMixins";
-
-const bodySize = (rows: number) => rows - 2;
+import { bodySize } from "./view.utils";
 
 export default function CodeView() {
   const [state] = useContext(WindowContext);

@@ -10,6 +10,7 @@ import {
 import leftArrow from "./leftArrow";
 import metaDownArrow from "./metaDownArrow";
 import metaUpArrow from "./metaUpArrow";
+import pageDown from "./pageDown";
 import pageUp from "./pageUp";
 import rightArrow from "./rightArrow";
 import upArrow from "./upArrow";
@@ -41,6 +42,8 @@ export default function keyPressHandler(
       return ctrlE(props);
     case "pageUp":
       return pageUp(props);
+    case "pageDown":
+      return pageDown(props);
     case "meta+upArrow":
       return metaUpArrow(props);
     case "meta+downArrow":
