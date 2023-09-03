@@ -1,3 +1,4 @@
+import backspace from "./backspace";
 import ctrlA from "./ctrlA";
 import ctrlE from "./ctrlE";
 import downArrow from "./downArrow";
@@ -17,10 +18,12 @@ export {
 } from "./keyPress.utils";
 
 export default function keyPressHandler(
-  key: Exclude<KeyPress, "backspace">,
+  key: KeyPress,
   props: KeyPressProps,
 ): KeyPressResult {
   switch (key) {
+    case "backspace":
+      return backspace(props);
     case "upArrow":
       return upArrow(props);
     case "downArrow":

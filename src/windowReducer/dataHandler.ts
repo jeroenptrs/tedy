@@ -2,7 +2,7 @@ import { assertErrorsOnce } from "@jeroenpeeters/assert-errors";
 import { WindowState } from "../windowState";
 import { UseInputParams } from "../ink.types";
 import keyPressHandler, { parseKeyPress } from "../keyPressHandler";
-import { extract, insert, parseInput } from "./windowReducer.utils";
+import { insert, parseInput } from "./windowReducer.utils";
 import { col, row } from "../cursor.types";
 
 export default function dataHandler(
@@ -41,35 +41,6 @@ export default function dataHandler(
       "rightArrow",
       newState,
     );
-    // TODO: move to keyPressHandler/backspace.ts
-  } else if (keyPress === "backspace") {
-    if (row(codePosition) === 0 && col(codePosition) === 0) {
-      return newState; // do nothing;
-    }
-
-    const codeArray = code.split("\n");
-    const codeLine = codeArray[row(codePosition)] as string;
-
-    if (col(codePosition) === 0) {
-      // set left, it will moveToEndLine and call up
-      [newVirtualCursor, newViewPort, newCodePosition] = keyPressHandler(
-        "leftArrow",
-        newState,
-      );
-
-      // take current row, concatenate to previous row, remove from code
-      codeArray[row(codePosition) - 1] += codeLine;
-      codeArray.splice(row(codePosition), 1);
-      newCode = codeArray.join("\n");
-    } else {
-      // remove from code
-      codeArray[row(codePosition)] = extract(codeLine, col(codePosition));
-
-      // rebuild + pass to keyPressHandler who will move cursor to the left
-      newState.code = codeArray.join("\n");
-      [newVirtualCursor, newViewPort, newCodePosition, newCode] =
-        keyPressHandler("leftArrow", newState);
-    }
   } else if (keyPress) {
     [newVirtualCursor, newViewPort, newCodePosition, newCode] = keyPressHandler(
       keyPress,
