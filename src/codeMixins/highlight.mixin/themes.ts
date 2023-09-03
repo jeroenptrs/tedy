@@ -4,6 +4,7 @@ import { type HighlightOptions } from "cli-highlight";
 
 import markdown from "./markdown";
 
+// TODO: v1? major refactor! allow multiple themes, instead of a theme specifically for MDX and the rest being default
 export default function getTheme(location: string): HighlightOptions {
   const language = parse(location).ext.substring(1);
 
@@ -14,15 +15,9 @@ export default function getTheme(location: string): HighlightOptions {
         language: "md",
         theme: markdown,
       };
-    case "js":
-    case "jsx":
-    case "ts":
-    case "tsx":
-    case "json":
+    default:
       return {
         language,
       };
   }
-
-  return {};
 }

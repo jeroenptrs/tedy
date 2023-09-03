@@ -8,6 +8,9 @@ import {
   type KeyPressResult,
 } from "./keyPress.utils";
 import leftArrow from "./leftArrow";
+import metaDownArrow from "./metaDownArrow";
+import metaUpArrow from "./metaUpArrow";
+import pageUp from "./pageUp";
 import rightArrow from "./rightArrow";
 import upArrow from "./upArrow";
 
@@ -36,6 +39,12 @@ export default function keyPressHandler(
       return ctrlA(props);
     case "ctrl+e":
       return ctrlE(props);
+    case "pageUp":
+      return pageUp(props);
+    case "meta+upArrow":
+      return metaUpArrow(props);
+    case "meta+downArrow":
+      return metaDownArrow(props);
     default:
       return [
         props.virtualCursor,

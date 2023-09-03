@@ -27,14 +27,17 @@ If you're experiencing an issue, please please please
 - [x] Backspace carries over line to previous line
 - [x] CMD + left/right movement
 - [ ] CMD+left: 1. move to first non-whitespace character 2. move to 0
-- [ ] Investigate CMD + up/down movement
+- [x] use pageUp for CMD+up
+- [ ] pageDown for CMD+down
+- [ ] text selection
 - [ ] Handle resize handling for cursor/viewport
-- [ ] pluggable mixins for code
-- [ ] alt/option + up/down movement
+- [x] pluggable mixin system for code
+- [x] alt/option + up/down movement
 - [ ] ...
 
 ## TODO: (post-v1)
 
 - [ ] open dir + multi file browser
 - [ ] command palette
+- [ ] tedy config to register and order mixins
 - [ ] ...

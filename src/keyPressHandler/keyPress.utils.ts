@@ -67,6 +67,8 @@ export type KeyPress =
   | "downArrow"
   | "leftArrow"
   | "rightArrow"
+  | "pageUp" /* fn+cmd+upArrow */
+  | "pageDown" /* fn+cmd+downArrow */
   | "ctrl+e" /* cmd+right */
   | "ctrl+a" /* cmd+left */
   | "meta+upArrow" /* option+right */
@@ -83,6 +85,8 @@ export function parseKeyPress(ch: string, key: Key): KeyPress {
       case "downArrow":
       case "leftArrow":
       case "rightArrow":
+      case "pageUp":
+      case "pageDown":
         return pressedKeys[0];
       case "ctrl": {
         if (ch === "a" || ch === "e") {

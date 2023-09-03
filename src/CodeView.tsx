@@ -1,36 +1,22 @@
-import { highlight } from "cli-highlight";
 import { Box } from "ink";
 import { useContext } from "react";
 
 import { WindowContext } from "./WindowHandler";
 import CodeLine from "./CodeLine";
-import getTheme from "./themes";
+import handleMixins from "./codeMixins";
 
 const bodySize = (rows: number) => rows - 2;
 
 export default function CodeView() {
-  const [{ columns, rows, code, location, viewPort }] = useContext(
-    WindowContext,
-  );
+  const [state] = useContext(WindowContext);
+  const { columns, rows, code, viewPort } = state;
   const [row, col] = viewPort;
 
-  // const usedKeys = lastInput?.[1]
-  //   ? Object.entries(lastInput?.[1]).filter(([, used]) => used).map(([name]) =>
-  //     name
-  //   )
-  //   : [];
-
-  // TODO: move to mixins
-  const theme = getTheme(location);
-  const potentiallyHighlightedCode = Object.keys(theme).length > 0
-    ? highlight(code, theme)
-    : code;
-  const rawCodeArray = potentiallyHighlightedCode.split("\n");
-  const codeArray = rawCodeArray.map((
+  const processedCode = handleMixins(code, state).split("\n");
+  const codeArray = processedCode.map((
     codeLine,
     index,
   ) => <CodeLine line={codeLine} key={index} />);
-  // ) => <CodeLine line={`${lastInput?.[0]} ${usedKeys.join(", ")}`} key={index} />);
 
   return (
     <Box
