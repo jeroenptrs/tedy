@@ -1,9 +1,10 @@
 import { assertErrorsOnce } from "@jeroenpeeters/assert-errors";
-import { WindowState } from "../windowState";
+
+import { col, row } from "../cursor.types";
 import { UseInputParams } from "../ink.types";
 import keyPressHandler, { parseKeyPress } from "../keyPressHandler";
+import { WindowState } from "../windowState";
 import { insert, parseInput } from "./windowReducer.utils";
-import { col, row } from "../cursor.types";
 
 export default function dataHandler(
   state: WindowState,

@@ -1,5 +1,5 @@
-import { WindowState } from "../windowState";
 import { saveFile } from "../fsHandler";
+import { WindowState } from "../windowState";
 
 export default function saveHandler(
   state: WindowState,

@@ -1,13 +1,13 @@
 import readline from "node:readline";
 
+import cliCursor from "cli-cursor";
 import { Box, useStdout } from "ink";
 import { useContext, useEffect } from "react";
 
-import { WindowContext } from "./WindowHandler";
+import CodeView from "./CodeView";
 import Footer from "./Footer";
 import Header from "./Header";
-import CodeView from "./CodeView";
-import cliCursor from "cli-cursor";
+import { WindowContext } from "./WindowHandler";
 
 export default function Container() {
   const [{ rows, virtualCursor }] = useContext(WindowContext);

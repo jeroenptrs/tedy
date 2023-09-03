@@ -1,7 +1,8 @@
-import { assertErrorsOnce } from "@jeroenpeeters/assert-errors";
 import { lstatSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import * as process from "node:process";
+
+import { assertErrorsOnce } from "@jeroenpeeters/assert-errors";
 
 export default function fsInputHandler(): [string, string] {
   const cwd = process.cwd();

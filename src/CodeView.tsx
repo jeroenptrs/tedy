@@ -1,8 +1,8 @@
 import { Box } from "ink";
 import { useContext } from "react";
 
-import { WindowContext } from "./WindowHandler";
 import CodeLine from "./CodeLine";
+import { WindowContext } from "./WindowHandler";
 import handleMixins from "./codeMixins";
 
 const bodySize = (rows: number) => rows - 2;

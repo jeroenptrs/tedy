@@ -5,9 +5,9 @@ import {
   useReducer,
 } from "react";
 
-import { initialState, type WindowState } from "./windowState";
-import windowReducer from "./windowReducer";
 import { type WindowReducerAction } from "./windowActions";
+import windowReducer from "./windowReducer";
+import { initialState, type WindowState } from "./windowState";
 
 type WindowContext = [WindowState, Dispatch<WindowReducerAction>];
 export const WindowContext = createContext<WindowContext>([

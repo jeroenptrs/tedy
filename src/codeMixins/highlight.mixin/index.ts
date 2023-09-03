@@ -1,5 +1,6 @@
 import { assertErrorsOnce } from "@jeroenpeeters/assert-errors";
 import highlight from "cli-highlight";
+
 import { WindowState } from "../../windowState";
 import getTheme from "./themes";
 

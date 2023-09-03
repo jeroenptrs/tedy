@@ -1,8 +1,8 @@
 import { type WindowReducerAction } from "../windowActions";
 import { type WindowState } from "../windowState";
+import dataHandler from "./dataHandler";
 import resizeHandler from "./resizeHandler";
 import saveHandler from "./saveHandler";
-import dataHandler from "./dataHandler";
 
 export default function windowReducer(
   state: WindowState,

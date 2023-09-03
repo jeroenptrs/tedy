@@ -1,8 +1,8 @@
 import { render } from "ink";
 
-import WindowHandler from "./WindowHandler";
-import ListenerProvider from "./ListenerProvider";
 import Container from "./Container";
+import ListenerProvider from "./ListenerProvider";
+import WindowHandler from "./WindowHandler";
 import fsInputHandler from "./fsHandler";
 
 function Main({ input }: { input: string; location: string }) {

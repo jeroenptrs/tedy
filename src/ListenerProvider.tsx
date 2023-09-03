@@ -6,9 +6,9 @@ import {
   useEffect,
 } from "react";
 
+import { WindowContext } from "./WindowHandler";
 import { clear } from "./clear";
 import { type UseInputParams } from "./ink.types";
-import { WindowContext } from "./WindowHandler";
 import { dataAction, resizeAction } from "./windowActions";
 
 export default function ListenerProvider({ children }: PropsWithChildren) {

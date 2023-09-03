@@ -46,8 +46,8 @@
     "patch-package": "^8.0.0",
     "rollup": "^3.28.1",
     "rollup-plugin-cleandir": "^2.0.0",
-    "tsx": "^3.12.7",
     "term-size": "^3.0.2",
+    "tsx": "^3.12.7",
     "type-fest": "^4.2.0",
     "typescript": "^5.1.6"
   }
