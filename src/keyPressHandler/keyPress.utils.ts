@@ -1,5 +1,5 @@
 import { type Key } from "ink";
-import { col, Cursor, cursor, row } from "../cursor.types";
+import { Cursor, cursor, row } from "../cursor.types";
 
 export function lines(code: string): number {
   return code.split("\n").length;
@@ -24,9 +24,7 @@ export function moveToLineEnd(
   const fitsInViewPort = codeLineLength < columns;
 
   const virtualCol = fitsInViewPort ? codeLineLength : columns - 1;
-  const viewPortCol = fitsInViewPort
-    ? col(viewPort)
-    : codeLineLength - (columns - 1);
+  const viewPortCol = fitsInViewPort ? 0 : codeLineLength - (columns - 1);
 
   return [
     cursor(row(virtualCursor), virtualCol),

@@ -11,7 +11,7 @@ export default function rightArrow(
   props: KeyPressProps,
 ): KeyPressResult {
   const { virtualCursor, viewPort, codePosition, code, columns } = props;
-  const newCodePosition = cursor(row(codePosition), col(codePosition) + 1); // TODO refactor
+  const newCodePosition = cursor(row(codePosition), col(codePosition) + 1);
   const codeLineLength = lineLength(code, row(codePosition));
 
   if (
