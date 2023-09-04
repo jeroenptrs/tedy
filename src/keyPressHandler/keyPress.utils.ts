@@ -24,6 +24,8 @@ export function moveToLineEnd(
   const fitsInViewPort = codeLineLength < columns;
 
   const virtualCol = fitsInViewPort ? codeLineLength : columns - 1;
+  // TODO: viewport - investigate whether viewport needs to be shifted if only the cursor needs to be shifted
+  // (cursor moving back to the left, but not entirely since all code is already in view)
   const viewPortCol = fitsInViewPort ? 0 : codeLineLength - (columns - 1);
 
   return [
