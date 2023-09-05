@@ -1,5 +1,5 @@
 import { col, cursor, row } from "../cursor.types";
-import { bodySize } from "../view.utils";
+import { bodyHeight } from "../view.utils";
 import ctrlE from "./ctrlE";
 import { KeyPressProps, KeyPressResult } from "./keyPress.utils";
 
@@ -13,7 +13,7 @@ export default function pageDown(props: KeyPressProps): KeyPressResult {
 
   props.codePosition = cursor(codeArray.length - 1, col(codePosition));
 
-  const height = bodySize(rows);
+  const height = bodyHeight(rows);
   const fitsInBody = codeArray.length <= height;
   if (fitsInBody) {
     props.virtualCursor = cursor(codeArray.length, col(virtualCursor));

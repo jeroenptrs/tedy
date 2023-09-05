@@ -1,5 +1,6 @@
 import { type Key } from "ink";
-import { Cursor, cursor, row } from "../cursor.types";
+import { col, Cursor, cursor, row } from "../cursor.types";
+import { bodyWidth } from "../view.utils";
 
 export function lines(code: string): number {
   return code.split("\n").length;
@@ -21,17 +22,27 @@ export function moveToLineEnd(
   const { virtualCursor, viewPort, codePosition, code, columns } = props;
 
   const codeLineLength = lineLength(code, row(codePosition) + rowModifier);
+  const newCodePosition = cursor(row(codePosition), codeLineLength);
   const fitsInViewPort = codeLineLength < columns;
+  
+  // TODO: If buggy, remove and just force viewport to go to 0.
+  const isInViewPort = fitsInViewPort && col(viewPort) <= codeLineLength - 1;
 
-  const virtualCol = fitsInViewPort ? codeLineLength : columns - 1;
-  // TODO: viewport - investigate whether viewport needs to be shifted if only the cursor needs to be shifted
-  // (cursor moving back to the left, but not entirely since all code is already in view)
-  const viewPortCol = fitsInViewPort ? 0 : codeLineLength - (columns - 1);
+  const virtualCol = isInViewPort
+    ? codeLineLength - col(viewPort)
+    : fitsInViewPort
+    ? codeLineLength
+    : bodyWidth(columns);
+  const viewPortCol = isInViewPort
+    ? col(viewPort)
+    : fitsInViewPort
+    ? 0
+    : codeLineLength - bodyWidth(columns);
 
   return [
     cursor(row(virtualCursor), virtualCol),
     cursor(row(viewPort), viewPortCol),
-    cursor(row(codePosition), codeLineLength),
+    newCodePosition,
     code,
   ];
 }
@@ -48,7 +59,6 @@ function reduceKey(keys: Key) {
   return pressedKeys;
 }
 
-// TODO: expand KeyPressResult to have a 4th return arg - code: string;
 export type KeyPressResult = [Cursor, Cursor, Cursor, string];
 
 export type KeyPressProps = {
@@ -121,5 +131,5 @@ export function parseKeyPress(ch: string, key: Key): KeyPress {
   }
 
   // If not matched, throw, but should get caught by assertErrors
-  throw new Error("no valid key combination found"); // TODO: make custom error MovementError;
+  throw new Error("no valid key combination found"); // TODO: make custom error KeyPressError;
 }

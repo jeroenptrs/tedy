@@ -4,7 +4,7 @@ import { useContext } from "react";
 import CodeLine from "./CodeLine";
 import { WindowContext } from "./WindowHandler";
 import handleMixins from "./codeMixins";
-import { bodySize } from "./view.utils";
+import { bodyHeight } from "./view.utils";
 
 export default function CodeView() {
   const [state] = useContext(WindowContext);
@@ -19,14 +19,14 @@ export default function CodeView() {
 
   return (
     <Box
-      height={bodySize(rows)}
+      height={bodyHeight(rows)}
       width={columns + col /* remove truncate-end */}
       display="flex"
       flexDirection="column"
       overflow="hidden"
       marginLeft={col * -1 /* imitate scroll to right */}
     >
-      {codeArray.slice(row).slice(0, bodySize(rows))}
+      {codeArray.slice(row).slice(0, bodyHeight(rows))}
     </Box>
   );
 }

@@ -1,5 +1,5 @@
 import { col, cursor, row } from "../cursor.types";
-import { bodySize } from "../view.utils";
+import { bodyHeight } from "../view.utils";
 import ctrlE from "./ctrlE";
 import { KeyPressProps, KeyPressResult, moveToLineEnd } from "./keyPress.utils";
 
@@ -13,7 +13,7 @@ export default function downArrow(props: KeyPressProps): KeyPressResult {
   }
 
   props.codePosition = cursor(row(codePosition) + 1, col(codePosition));
-  if (row(virtualCursor) < bodySize(rows)) {
+  if (row(virtualCursor) < bodyHeight(rows)) {
     // We're not at the bottom of the viewport and the code.
     props.virtualCursor = cursor(row(virtualCursor) + 1, col(virtualCursor));
   } else {

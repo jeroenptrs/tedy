@@ -22,7 +22,7 @@ export default function fsInputHandler(): [string, string] {
   }
 
   if (pathInfo?.isDirectory()) {
-    // TODO: create multi file view, opening dirs too!
+    // TODO: [v2] create multi file view, opening dirs too!
     console.log("Please point to a file, not a directory");
     process.exit(1);
   }

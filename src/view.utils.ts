@@ -1,1 +1,2 @@
-export const bodySize = (rows: number) => rows - 2;
+export const bodyHeight = (rows: number) => rows - 2;
+export const bodyWidth = (columns: number) => columns - 1;
